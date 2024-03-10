@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web-apache:
+    image: httpd:2.4
+    ports:
+      - "80:80"
+  
+  db-mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    
+    php-apache:
+      image: php:8.0-apache
+      ports:
+        - "8080:81"
+      depends_on:
+        - db-mysql
